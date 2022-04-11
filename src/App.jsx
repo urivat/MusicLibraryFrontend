@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
+import DisplayMusic from "./component/DisplayMusic/DisplayMusic";
 
 function App() {
   const [songs, setSongs]= useState([]);
@@ -9,13 +10,18 @@ function App() {
   }, [])
   
   async function getAllSongs(){
-    let response = await axios.get('http://127.0.0.1:8000/api/music/');
+    let response = await axios.get(['http://127.0.0.1:8000/api/music/']);
     setSongs(response.data);
+    console.log(setSongs)
   }
   
   
   
-  return ()
+  return (
+    <div>
+     <DisplayMusic allMusic ={songs}/>
+    </div>
+  )
     
 }
 
