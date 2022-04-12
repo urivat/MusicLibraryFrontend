@@ -17,22 +17,36 @@ function App() {
     setSongs(response.data);
     console.log(setSongs)
   }
- async function addSong(searchField){
-   
-   
- }
- let response = await axios.post('http://127.0.0.1:8000/api/music/', newSong);
+  useEffect(() =>{
+    addSong();
+  }), []
+  async function addSong(){
+  const newSong = {
+        
+  "title": "Chemical",
+  "artist": "The Devil Wears Prada",
+  "album": "The Act",
+  "release_date": "2019-10-11",
+  "genre": "Metal"
+}
+  let response = await axios.post('http://127.0.0.1:8000/api/music/', newSong);
 if(response.status === 201){
   await getAllSongs()
 }}
-async function searchSongs(){
+
+async function searchSongs(searchTerm){
   let response = await axios.get('http://127.0.0.1:8000/api/music/');
-  let filterSong = response.filter(function(foundSong){
-    if(foundSong.songs.includes(params)){
-      return setSongs(filterSong.data)
+  let filterSong = response.filter(
+    // anony function
+    function(foundSong){
+      // searchTerm to Title, searchTerm to Artist, searchTemn to Genre
+      // searchTerm == Title OR searchTerm == Artist
+
+    if(foundSong.songs.includes(searchTerm.title || searchTerm.artist || searchTerm.genre || searchTerm.album || searchTerm.release_date)){
+      return true
     }
   })
-
+return filterSong.data
 }
 
   
@@ -43,9 +57,9 @@ async function searchSongs(){
     <div className="container-fluid">
       <div className="row">
         <div className="border-box">
-        <DisplayMusic allMusic ={songs}/>
+        <DisplayMusic allMusic ={searchSongs}/>
         </div>
-        <SearchBar params = {songs} />
+        <SearchBar params = {searchSongs} />
 
       </div>
      
