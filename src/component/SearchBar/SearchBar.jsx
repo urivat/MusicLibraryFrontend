@@ -1,10 +1,14 @@
 const SearchBar = (props) => {
     return ( 
-        <form>
-            <div>
-                <label>filter</label>
-                <input value = {song}/>
-            </div>
+        <form action="./" method="get">
+           <label>
+               <span>Search Bar</span>
+           </label>
+           <input
+            type="text"
+            placeholder= 'search songs'
+            />
+            <button type='submit'>Search</button>
         </form>
      );
 }
