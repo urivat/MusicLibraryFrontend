@@ -3,13 +3,19 @@ import { useState } from "react";
 const SearchBar = ({searchSong}) => {
     const [searchTerm , setSearchTerm] = useState('')
 
-    const handleSubmit = (event) => {    
-        searchSong(searchTerm)
+    const handleSubmit = (e) => {    
+        e.preventDefault('');
+        let field = {
+           searchTerm
+       };
+       console.log(field)
+       searchSong.searchForSong(field)
+        
         
     }
 
     return ( 
-        <form>
+        <form onSubmit={handleSubmit}>
            <label>
                <span>Search Bar</span>
            </label>
@@ -17,9 +23,9 @@ const SearchBar = ({searchSong}) => {
             type="text"
             placeholder= 'search songs'
             value= {searchTerm} // fieldvalue
-            
+            onChange = {(event) => setSearchTerm(event.target.value)}
             />
-            <button type='submit' onCLick={handleSubmit}>Search</button>
+            <button type='submit'>Search</button>
         </form>
      );
 }

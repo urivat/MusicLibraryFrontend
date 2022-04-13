@@ -12,14 +12,13 @@ function App() {
     getAllSongs();
   }, [])
   
+
   async function getAllSongs(){
     let response = await axios.get(['http://127.0.0.1:8000/api/music/']);
     setSongs(response.data);
     console.log(setSongs)
   }
-  useEffect(() =>{
-    addSong();
-  }), []
+  
   async function addSong(){
   const newSong = {
         
@@ -37,10 +36,9 @@ if(response.status === 201){
 async function searchSongs(searchTerm){
   let response = await axios.get('http://127.0.0.1:8000/api/music/');
   let filterSong = response.filter(
-    // anony function
+
     function(foundSong){
-      // searchTerm to Title, searchTerm to Artist, searchTemn to Genre
-      // searchTerm == Title OR searchTerm == Artist
+      
 
     if(foundSong.songs.includes(searchTerm.title || searchTerm.artist || searchTerm.genre || searchTerm.album || searchTerm.release_date)){
       return true
@@ -57,7 +55,7 @@ return filterSong.data
     <div className="container-fluid">
       <div className="row">
         <div className="border-box">
-        <DisplayMusic allMusic ={searchSongs}/>
+        <DisplayMusic allMusic ={songs} foundMusic = {searchSongs} />
         </div>
         <SearchBar params = {searchSongs} />
 
