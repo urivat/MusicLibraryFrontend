@@ -19,33 +19,18 @@ function App() {
     console.log(setSongs)
   }
   
-  async function addSong(){
-  const newSong = {
-        
-  "title": "Chemical",
-  "artist": "The Devil Wears Prada",
-  "album": "The Act",
-  "release_date": "2019-10-11",
-  "genre": "Metal"
-}
-  let response = await axios.post('http://127.0.0.1:8000/api/music/', newSong);
-if(response.status === 201){
-  await getAllSongs()
-}}
+  
 
 async function searchSongs(searchTerm){
   let response = await axios.get('http://127.0.0.1:8000/api/music/');
-  let filterSong = response.filter(
-
-    function(foundSong){
-      
-
-    if(foundSong.songs.includes(searchTerm.title || searchTerm.artist || searchTerm.genre || searchTerm.album || searchTerm.release_date)){
+  let filterSong = response.filter((foundSong) => {
+      foundSong.songs.includes(foundSong.title || foundSong.artist || foundSong.genre || foundSong.album || foundSong.release_date)
       return true
-    }
   })
-return filterSong.data
-}
+    return filterSong.data
+  }
+
+
 
   
   
@@ -54,10 +39,14 @@ return filterSong.data
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="border-box">
-        <DisplayMusic allMusic ={songs} foundMusic = {searchSongs} />
+        <div className="col-lg-6">
+          <div className="border-box">
+          <DisplayMusic allMusic ={songs} />
+          <SearchBar searchForSong = {searchSongs}/>
+          </div>
+        
         </div>
-        <SearchBar params = {searchSongs} />
+        
 
       </div>
      

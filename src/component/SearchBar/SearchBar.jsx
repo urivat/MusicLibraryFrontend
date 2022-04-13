@@ -1,21 +1,21 @@
 import { useState } from "react";
 
-const SearchBar = ({searchSong}) => {
+const SearchBar = (props) => {
     const [searchTerm , setSearchTerm] = useState('')
 
     const handleSubmit = (e) => {    
-        e.preventDefault('');
-        let field = {
-           searchTerm
-       };
-       console.log(field)
-       searchSong.searchForSong(field)
+    if(props.songs === searchTerm){
+        setSearchTerm(props.songs)
+    }
+    else{
+        return false
+    }
         
         
     }
 
     return ( 
-        <form onSubmit={handleSubmit}>
+        <form>
            <label>
                <span>Search Bar</span>
            </label>
@@ -25,7 +25,7 @@ const SearchBar = ({searchSong}) => {
             value= {searchTerm} // fieldvalue
             onChange = {(event) => setSearchTerm(event.target.value)}
             />
-            <button type='submit'>Search</button>
+            <button onClick= {handleSubmit} type='submit'>Search</button>
         </form>
      );
 }
